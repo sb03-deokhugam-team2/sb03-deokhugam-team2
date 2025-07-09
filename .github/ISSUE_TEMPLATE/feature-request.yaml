@@ -12,8 +12,11 @@ body:
   - type: textarea
     attributes:
       label: ✅ 작업할 내용
-      description: 할 일을 체크박스 형태로 작성해주세요.
-      placeholder: 최대한 세분화 해서 적어주세요!
+      description: 할 일을 체크박스 형태로 작성해주세요. (아래는 예시입니다)
+      placeholder: |
+        - [ ] 테스트코드를 작성했습니다.
+        - [ ] 메인 코드를 작성했습니다.
+        - [ ] 테스트를 완료했습니다.
     validations:
       required: true
   - type: textarea
