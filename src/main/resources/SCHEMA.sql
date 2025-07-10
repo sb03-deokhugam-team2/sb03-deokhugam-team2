@@ -4,15 +4,16 @@
 -- GRANT ALL PRIVILEGES ON DATABASE deokhugam TO twogether;
 
 -- 테이블 초기화
-DROP TABLE IF EXISTS books;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS review_like;
-DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS popular_review_ranking;
-DROP TABLE IF EXISTS power_user_ranking;
-DROP TABLE IF EXISTS popular_book_ranking;
-DROP TABLE IF EXISTS notification;
+-- DROP TABLE IF EXISTS books CASCADE;
+-- DROP TABLE IF EXISTS users CASCADE;
+-- DROP TABLE IF EXISTS reviews CASCADE;
+-- DROP TABLE IF EXISTS review_like CASCADE;
+-- DROP TABLE IF EXISTS comments CASCADE;
+-- DROP TABLE IF EXISTS popular_review_ranking CASCADE;
+-- DROP TABLE IF EXISTS power_user_ranking CASCADE;
+-- DROP TABLE IF EXISTS popular_book_ranking CASCADE;
+-- DROP TYPE IF EXISTS ranking_period;
+-- DROP TABLE IF EXISTS notification CASCADE;
 -- 도서관리 테이블
 CREATE TABLE books
 (
