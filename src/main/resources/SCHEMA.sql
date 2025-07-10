@@ -1,7 +1,8 @@
 -- 유저 생성
--- CREATE DATABASE deokhugam WITH OWNER = twogether;
 -- CREATE USER twogether WITH PASSWORD 'omega2503';
+-- CREATE DATABASE deokhugam WITH OWNER = twogether;
 -- GRANT ALL PRIVILEGES ON DATABASE deokhugam TO twogether;
+-- create schema if not exists deokhugam authorization twogether;
 
 -- 테이블 초기화
 -- DROP TABLE IF EXISTS books CASCADE;
@@ -14,6 +15,7 @@
 -- DROP TABLE IF EXISTS popular_book_ranking CASCADE;
 -- DROP TYPE IF EXISTS ranking_period;
 -- DROP TABLE IF EXISTS notification CASCADE;
+
 -- 도서관리 테이블
 CREATE TABLE books
 (
