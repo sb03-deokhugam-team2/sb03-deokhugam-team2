@@ -93,14 +93,14 @@ CREATE TABLE comments
 CREATE TYPE ranking_period AS ENUM ('DAILY', 'WEEKLY', 'MONTHLY', 'ALL_TIME');
 
 -- 알림 테이블 (ON DELETE CASCADE)
-CREATE TABLE notification (
+CREATE TABLE notifications (
     id UUID                             PRIMARY KEY,
     content VARCHAR(255)                NOT NULL,
     confirmed BOOLEAN                   NOT NULL,
     created_at TIMESTAMPTZ              NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ              NOT NULL DEFAULT now(),
-    review_id UUID,
-    user_id UUID,
+    review_id UUID                      NOT NULL,
+    user_id UUID                        NOT NULL,
 
     FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -109,7 +109,7 @@ CREATE TABLE notification (
 -- 인기 도서 랭킹 (ON DELETE SET NULL)
 CREATE TABLE popular_book_ranking (
     id UUID                             PRIMARY KEY ,
-    book_id UUID,
+    book_id UUID                        NOT NULL,
     period ranking_period               NOT NULL,
     score DOUBLE PRECISION              NOT NULL,
     review_count BIGINT                 NOT NULL,
@@ -126,17 +126,17 @@ CREATE TABLE popular_book_ranking (
 -- 인기 리뷰 랭킹 (ON DELETE SET NULL)
 CREATE TABLE popular_review_ranking (
     id UUID                             PRIMARY KEY ,
-    review_id UUID,
+    review_id UUID                      NOT NULL,
     period ranking_period               NOT NULL,
     score DOUBLE PRECISION              NOT NULL,
     like_count BIGINT                   NOT NULL,
     comment_count BIGINT                NOT NULL,
     rank INT                            NOT NULL,
-    user_id UUID,
+    user_id UUID                        NOT NULL,
     user_nickname VARCHAR(50)           NOT NULL,
     content TEXT                        NOT NULL,
     rating DOUBLE PRECISION             NOT NULL,
-    book_id UUID,
+    book_id UUID                        NOT NULL,
     book_title VARCHAR(100)             NOT NULL,
     book_thumbnail_url VARCHAR(255),
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -149,7 +149,7 @@ CREATE TABLE popular_review_ranking (
 -- 파워 유저 랭킹 (ON DELETE SET NULL)
 CREATE TABLE power_user_ranking (
     id UUID                             PRIMARY KEY,
-    user_id UUID,
+    user_id UUID                        NOT NULL,
     period ranking_period               NOT NULL,
     score DOUBLE PRECISION              NOT NULL,
     review_score_sum DOUBLE PRECISION   NOT NULL,
