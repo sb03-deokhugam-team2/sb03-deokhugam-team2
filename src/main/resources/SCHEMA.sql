@@ -1,6 +1,6 @@
 -- 유저 생성
--- CREATE USER twogether WITH PASSWORD 'omega2503';
 -- CREATE DATABASE deokhugam WITH OWNER = twogether;
+-- CREATE USER twogether WITH PASSWORD 'omega2503';
 -- GRANT ALL PRIVILEGES ON DATABASE deokhugam TO twogether;
 -- create schema if not exists deokhugam authorization twogether;
 

@@ -6,11 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name= "books")
@@ -51,11 +52,29 @@ public class Book {
   private Float rating;
 
   @Column(name = "created_at", nullable = false)
-  private OffsetDateTime createdAt;
+  private Instant createdAt;
 
   @Column(name = "updated_at")
-  private OffsetDateTime updatedAt;
+  private Instant updatedAt;
 
+  @Setter
   @Column(name = "is_deleted", nullable = false)
   private Boolean isDeleted = false;
+
+  public Book(UUID id, String title, String author, String description, String publisher,
+      LocalDate publishedDate, String isbn, String thumbnailUrl, Integer reviewCount, Float rating,
+      Instant createdAt, Instant updatedAt) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+    this.description = description;
+    this.publisher = publisher;
+    this.publishedDate = publishedDate;
+    this.isbn = isbn;
+    this.thumbnailUrl = thumbnailUrl;
+    this.reviewCount = reviewCount;
+    this.rating = rating;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 }
