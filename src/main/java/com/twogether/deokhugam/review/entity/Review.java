@@ -41,10 +41,10 @@ public class Review {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "book_title", length = 100, nullable = false)
+    @Column(name = "book_title", length = 255, nullable = false)
     private String bookTitle;
 
-    @Column(name = "book_thumbnail_url", length = 255)
+    @Column(name = "book_thumbnail_url", columnDefinition = "TEXT")
     private String bookThumbnailUrl;
 
     @Column(name = "user_nickname", length = 50, nullable = false)
