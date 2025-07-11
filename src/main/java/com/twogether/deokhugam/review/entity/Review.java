@@ -31,7 +31,7 @@ public class Review {
 
     @Id
     @Column(name = "id", nullable = false, updatable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
@@ -54,7 +54,7 @@ public class Review {
     private String content;
 
     @Column(name = "rating", nullable = false)
-    private double rating;
+    private int rating;
 
     @Column(name = "like_count", nullable = false)
     private long likeCount = 0;
@@ -77,7 +77,7 @@ public class Review {
     private Instant updatedAt;
 
     public Review(UUID id, Book book, User user, String bookTitle, String bookThumbnailUrl,
-            String userNickName, String content, double rating, Long likeCount, Long commentCount,
+            String userNickName, String content, int rating, Long likeCount, Long commentCount,
             boolean likedByMe, boolean isDeleted, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.book = book;
@@ -95,5 +95,13 @@ public class Review {
         this.updatedAt = updatedAt;
     }
 
+    public Review(Book book, User user, String content, int rating) {
+        this.id = UUID.randomUUID();
+        this.book = book;
+        this.user = user;
+        this.content = content;
+        this.rating = rating;
+        this.createdAt = Instant.now();
+    }
 
 }
