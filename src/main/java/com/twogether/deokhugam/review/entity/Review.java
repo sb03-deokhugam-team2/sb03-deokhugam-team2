@@ -102,6 +102,10 @@ public class Review {
         this.content = content;
         this.rating = rating;
         this.createdAt = Instant.now();
+
+        this.bookTitle = book.getTitle();
+        this.bookThumbnailUrl = book.getThumbnailUrl();
+        this.userNickName = user.getNickname();
     }
 
 }
