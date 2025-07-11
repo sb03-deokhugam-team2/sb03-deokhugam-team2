@@ -66,7 +66,7 @@ public class Book {
   @Column(name = "is_deleted", nullable = false)
   private Boolean isDeleted = false;
 
-  public Book(String title, String author, String description, String publisher,LocalDate publishedDate) {
+  public Book(String title, String author, String description, String publisher, LocalDate publishedDate) {
     this.title = title;
     this.author = author;
     this.description = description;
