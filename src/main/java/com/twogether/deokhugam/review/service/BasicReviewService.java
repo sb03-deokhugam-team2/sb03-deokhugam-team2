@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class BasicReviewService implements ReviewService{
 
     // 리뷰 생성
     @Override
+    @Transactional
     public ReviewDto create(ReviewCreateRequest request) {
         // 이미 존재하는 리뷰 시 예외
         if (reviewRepository.existsByUserIdAndBookId(request.userId(), request.bookId())){
