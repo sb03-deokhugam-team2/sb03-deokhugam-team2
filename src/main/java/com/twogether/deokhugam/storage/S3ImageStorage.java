@@ -28,6 +28,7 @@ public class S3ImageStorage {
     /**
      * 이미지 파일을 S3에 업로드
      * @param imageFile 업로드할 이미지 파일
+     * @param folderPath S3 내 저장 경로 (예: "thumbnail/")
      * @return S3에 저장된 이미지 URL
      */
     public String uploadImage(MultipartFile imageFile, String folderPath) throws IOException {
