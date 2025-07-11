@@ -1,5 +1,6 @@
 package com.twogether.deokhugam.book.entity;
 
+import com.twogether.deokhugam.book.dto.BookDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,30 +25,34 @@ public class Book {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name = "title", nullable = false, length = 100)
+  @Column(name = "title", nullable = false, length = 255)
   private String title;
 
-  @Column(name = "author", nullable = false, length = 50)
+  @Column(name = "author", nullable = false, length = 100)
   private String author;
 
-  @Column(name = "description", nullable = false, length = Integer.MAX_VALUE)
+  @Column(name = "description", columnDefinition = "TEXT", nullable = false, length = Integer.MAX_VALUE)
   private String description;
 
-  @Column(name = "publisher", nullable = false, length = 50)
+  @Column(name = "publisher", nullable = false, length = 100)
   private String publisher;
 
   @Column(name = "published_date", nullable = false)
   private LocalDate publishedDate;
 
+  @Setter
   @Column(name = "isbn", length = 13)
   private String isbn;
 
-  @Column(name = "thumbnail_url")
+  @Setter
+  @Column(name = "thumbnail_url", columnDefinition = "TEXT")
   private String thumbnailUrl;
 
+  @Setter
   @Column(name = "review_count", nullable = false)
   private Integer reviewCount;
 
+  @Setter
   @Column(name = "rating", nullable = false)
   private Float rating;
 
@@ -61,20 +66,31 @@ public class Book {
   @Column(name = "is_deleted", nullable = false)
   private Boolean isDeleted = false;
 
-  public Book(UUID id, String title, String author, String description, String publisher,
-      LocalDate publishedDate, String isbn, String thumbnailUrl, Integer reviewCount, Float rating,
-      Instant createdAt, Instant updatedAt) {
-    this.id = id;
+  public Book(String title, String author, String description, String publisher,LocalDate publishedDate) {
     this.title = title;
     this.author = author;
     this.description = description;
     this.publisher = publisher;
     this.publishedDate = publishedDate;
-    this.isbn = isbn;
-    this.thumbnailUrl = thumbnailUrl;
-    this.reviewCount = reviewCount;
-    this.rating = rating;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.rating = 0F;
+    this.reviewCount = 0;
+    this.createdAt = Instant.now();
+  }
+
+  public BookDto toDto(){
+    return new BookDto(
+        this.id,
+        this.title,
+        this.author,
+        this.description,
+        this.publisher,
+        this.publishedDate,
+        this.isbn,
+        this.thumbnailUrl,
+        this.reviewCount,
+        this.rating,
+        this.createdAt,
+        this.updatedAt
+    );
   }
 }
