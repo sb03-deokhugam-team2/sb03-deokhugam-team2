@@ -65,14 +65,6 @@ public class BasicReviewServiceTest {
         reviewCreateRequest = new ReviewCreateRequest(
                 bookId, userId, "재밌는 책이다.", 4
         );
-
-        Book book = new Book(
-                "더쿠의 심리학",
-                "박인규",
-                "더쿠에 대한 심도깊은 해설",
-                "이북리더즈",
-                LocalDate.of(1989, 5, 12)
-        );
     }
 
     @Test
