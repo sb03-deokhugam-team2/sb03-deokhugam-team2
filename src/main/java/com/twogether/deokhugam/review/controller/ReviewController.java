@@ -28,7 +28,7 @@ public class ReviewController {
         ReviewDto reviewDto = reviewService.create(request);
 
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(reviewDto);
     }
 }
