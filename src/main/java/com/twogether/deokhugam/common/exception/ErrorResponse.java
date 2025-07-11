@@ -37,6 +37,7 @@ public class ErrorResponse {
         this.timestamp = timestamp;
         this.code = code;
         this.message = message;
+        this.details = Map.of();
         this.exceptionType = exceptionType;
         this.status = status;
     }
