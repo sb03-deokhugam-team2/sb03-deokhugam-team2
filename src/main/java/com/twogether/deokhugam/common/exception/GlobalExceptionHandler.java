@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -20,9 +19,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-  private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class.getName());
-
 
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseBody
@@ -50,8 +46,8 @@ public class GlobalExceptionHandler {
   // 커스텀 예외 처리
   @ExceptionHandler(DeokhugamException.class)
   @ResponseBody
-  public ResponseEntity<ErrorResponse> handleDiscodeitExcetion(DeokhugamException e){
-    log.warn("[GlobalExceptionHandler] DiscodeitException 발생: {}", e.getMessage(), e);
+  public ResponseEntity<ErrorResponse> handleDeokhugamException(DeokhugamException e){
+    log.warn("[GlobalExceptionHandler] DeokhugamException 발생: {}", e.getMessage(), e);
 
     int status = e.getErrorCode().getStatus();
     ErrorResponse errorResponse = ErrorResponse.of(e);
