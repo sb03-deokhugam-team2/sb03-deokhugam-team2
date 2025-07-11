@@ -5,28 +5,28 @@
 -- create schema if not exists deokhugam authorization twogether;
 
 -- 테이블 초기화
--- DROP TABLE IF EXISTS books CASCADE;
--- DROP TABLE IF EXISTS users CASCADE;
--- DROP TABLE IF EXISTS reviews CASCADE;
--- DROP TABLE IF EXISTS review_like CASCADE;
--- DROP TABLE IF EXISTS comments CASCADE;
--- DROP TABLE IF EXISTS popular_review_ranking CASCADE;
--- DROP TABLE IF EXISTS power_user_ranking CASCADE;
--- DROP TABLE IF EXISTS popular_book_ranking CASCADE;
--- DROP TYPE IF EXISTS ranking_period;
--- DROP TABLE IF EXISTS notification CASCADE;
+DROP TABLE IF EXISTS books CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS review_like CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS popular_review_ranking CASCADE;
+DROP TABLE IF EXISTS power_user_ranking CASCADE;
+DROP TABLE IF EXISTS popular_book_ranking CASCADE;
+DROP TYPE IF EXISTS ranking_period;
+DROP TABLE IF EXISTS notifications CASCADE;
 
 -- 도서관리 테이블
 CREATE TABLE books
 (
     id UUID                             PRIMARY KEY,
-    title VARCHAR(100)                  NOT NULL,
-    author VARCHAR(50)                  NOT NULL,
+    title VARCHAR(255)                  NOT NULL,
+    author VARCHAR(100)                  NOT NULL,
     description TEXT                    NOT NULL,
-    publisher VARCHAR(50)               NOT NULL,
+    publisher VARCHAR(100)               NOT NULL,
     published_date DATE                 NOT NULL,
     isbn VARCHAR(13)                    UNIQUE,
-    thumbnail_url VARCHAR(255),
+    thumbnail_url TEXT,
     review_count INTEGER                NOT NULL,
     rating REAL                         NOT NULL,
     created_at TIMESTAMPTZ              NOT NULL,
