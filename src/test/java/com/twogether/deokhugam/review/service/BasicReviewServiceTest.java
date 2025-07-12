@@ -2,8 +2,10 @@ package com.twogether.deokhugam.review.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,11 +14,13 @@ import com.twogether.deokhugam.book.repository.BookRepository;
 import com.twogether.deokhugam.review.dto.ReviewDto;
 import com.twogether.deokhugam.review.dto.request.ReviewCreateRequest;
 import com.twogether.deokhugam.review.entity.Review;
+import com.twogether.deokhugam.review.exception.ReviewExistException;
 import com.twogether.deokhugam.review.mapper.ReviewMapper;
 import com.twogether.deokhugam.review.repository.ReviewRepository;
 import com.twogether.deokhugam.user.entity.User;
 import com.twogether.deokhugam.user.repository.UserRepository;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,7 +72,7 @@ public class BasicReviewServiceTest {
     }
 
     @Test
-    @DisplayName("리뷰 생성 성공하는 테스트")
+    @DisplayName("유효한 요청으로 리뷰를 생성할 수 있다.")
     void create_Review() {
         // Mock 객체
         Book mockBook = mock(Book.class);
@@ -89,5 +93,51 @@ public class BasicReviewServiceTest {
         // Then
         assertEquals(expectedDto, result);
         verify(reviewRepository).save(any(Review.class));
+    }
+
+    @Test
+    @DisplayName("이미 리뷰가 존재하는 경우 예외가 발생한다.")
+    void review_exist() {
+        when(reviewRepository.existsByUserIdAndBookId(userId, bookId)).thenReturn(true);
+
+        // when & then
+        assertThrows(ReviewExistException.class, () -> {
+            basicReviewService.create(reviewCreateRequest);
+        });
+
+        // 혹시라도 save()가 호출되면 안 됨
+        verify(reviewRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("도서를 찾을 수 없는 경우 예외가 발생한다.")
+    void book_notFound() {
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
+
+        // when & then
+        assertThrows(NoSuchElementException.class, () -> {
+            basicReviewService.create(reviewCreateRequest);
+        });
+
+        // 혹시라도 save()가 호출되면 안 됨
+        verify(reviewRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("사용자를 찾을 수 없는 경우 예외가 발생한다.")
+    void user_notFound() {
+
+        Book mockBook = mock(Book.class);
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(mockBook));
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        // when & then
+        assertThrows(NoSuchElementException.class, () -> {
+            basicReviewService.create(reviewCreateRequest);
+        });
+
+        // 혹시라도 save()가 호출되면 안 됨
+        verify(reviewRepository, never()).save(any());
     }
 }
