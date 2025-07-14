@@ -46,8 +46,18 @@ public class Comment {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
-    protected Comment() {}
+    /**
+ * Protected no-argument constructor required by JPA for entity instantiation.
+ */
+protected Comment() {}
 
+    /**
+     * Creates a new Comment associated with the specified user and review, initializing its content and setting it as not deleted.
+     *
+     * @param user    the author of the comment
+     * @param review  the review to which the comment belongs
+     * @param content the text content of the comment
+     */
     public Comment(User user, Review review, String content) {
         this.user = user;
         this.review = review;
@@ -55,21 +65,59 @@ public class Comment {
         this.isDeleted = false;
     }
 
+    /**
+     * Updates the content of the comment and refreshes the last updated timestamp.
+     *
+     * @param newContent the new text content for the comment
+     */
     public void editContent(String newContent) {
         this.content = newContent;
         this.updatedAt = LocalDateTime.now();
     }
 
+    /**
+     * Marks the comment as deleted and updates the last modified timestamp.
+     */
     public void delete() {
         this.isDeleted = true;
         this.updatedAt = LocalDateTime.now();
     }
 
-    public UUID getId() { return id; }
-    public User getUser() { return user; }
-    public Review getReview() { return review; }
-    public String getContent() { return content; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    /**
+ * Returns the unique identifier of this comment.
+ *
+ * @return the UUID of the comment
+ */
+public UUID getId() { return id; }
+    /**
+ * Returns the user who authored this comment.
+ *
+ * @return the associated User entity
+ */
+public User getUser() { return user; }
+    /**
+ * Returns the review associated with this comment.
+ *
+ * @return the Review entity to which this comment belongs
+ */
+public Review getReview() { return review; }
+    /**
+ * Returns the text content of the comment.
+ *
+ * @return the comment's content
+ */
+public String getContent() { return content; }
+    /**
+ * Returns the timestamp when the comment was created.
+ *
+ * @return the creation time of the comment
+ */
+public LocalDateTime getCreatedAt() { return createdAt; }
+    /**
+ * Returns the timestamp of the last update to this comment.
+ *
+ * @return the date and time when the comment was last modified
+ */
+public LocalDateTime getUpdatedAt() { return updatedAt; }
     public Boolean getIsDeleted() { return isDeleted; }
 }

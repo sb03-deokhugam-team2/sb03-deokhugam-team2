@@ -23,6 +23,14 @@ public class CommentController {
 
     private final CommentService commentService;
 
+    /**
+     * Creates a new comment for a review.
+     *
+     * Accepts a validated comment creation request and returns the created comment with HTTP status 201 (Created).
+     *
+     * @param request the validated request containing comment details
+     * @return a ResponseEntity containing the created comment
+     */
     @Operation(summary = "댓글 등록", description = "리뷰에 댓글을 등록합니다.")
     @PostMapping
     public ResponseEntity<CommentResponse> create(@Valid @RequestBody CommentCreateRequest request) {

@@ -30,10 +30,13 @@ public class CommentService {
     private final UserRepository userRepository;
 
     /**
-     * 댓글 등록.
+     * Creates a new comment associated with a specific review and user.
      *
-     * @param request 등록 요청 DTO
-     * @return 등록 결과 DTO
+     * Retrieves the review and user by their IDs from the request, creates and saves a new comment entity, and returns the result as a response DTO.
+     *
+     * @param request the DTO containing the review ID, user ID, and comment content
+     * @return the response DTO representing the created comment
+     * @throws NoSuchElementException if the specified review or user does not exist
      */
     public CommentResponse createComment(@Valid CommentCreateRequest request) {
         Review review = reviewRepository.findById(request.reviewId())
