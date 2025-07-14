@@ -21,6 +21,11 @@ public class S3Config {
     @Value("${AWS_S3_REGION}")
     private String region;
 
+    /**
+     * Creates and configures an AWS S3 client bean using credentials and region from environment variables.
+     *
+     * @return a configured {@link S3Client} instance for interacting with AWS S3
+     */
     @Bean
     public S3Client s3Client() {
 

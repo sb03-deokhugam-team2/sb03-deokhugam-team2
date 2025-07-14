@@ -24,15 +24,24 @@ public class S3ImageStorage {
     @Value("${AWS_S3_REGION}")
     private String region;
 
+    /**
+     * Constructs an instance of S3ImageStorage with the provided S3 client.
+     *
+     * @param s3Client the AWS S3 client used for S3 operations
+     */
     public S3ImageStorage(S3Client s3Client) {
         this.s3Client = s3Client;
     }
 
-    /**
-     * 이미지 파일을 S3에 업로드
-     * @param imageFile 업로드할 이미지 파일
-     * @param folderPath S3 내 저장 경로 (예: "thumbnail/")
-     * @return S3에 저장된 이미지 URL
+    /****
+     * Uploads an image file to the specified folder in the configured AWS S3 bucket and returns its public URL.
+     *
+     * Validates the image file for type and size, generates a unique filename, uploads the file to S3, and constructs the public URL for access.
+     *
+     * @param imageFile   the image file to upload
+     * @param folderPath  the S3 folder path where the image will be stored (e.g., "thumbnail/")
+     * @return the public URL of the uploaded image in S3
+     * @throws IOException if an I/O error occurs while reading the file
      */
     public String uploadImage(MultipartFile imageFile, String folderPath) throws IOException {
         log.info("이미지 업로드 시작 - 파일명: {}, 크기: {}바이트",
@@ -76,7 +85,10 @@ public class S3ImageStorage {
     }
 
     /**
-     * 이미지 파일 유효성 검증
+     * Validates that the provided file is a supported image and meets size and type requirements.
+     *
+     * @param file the image file to validate
+     * @throws IllegalArgumentException if the file is empty, not an image, exceeds 5MB, or is not JPEG, JPG, PNG, or WebP format
      */
     private void validateImageFile(MultipartFile file) {
         // 파일이 비어있는지 확인
@@ -112,7 +124,10 @@ public class S3ImageStorage {
     }
 
     /**
-     * 고유한 파일명 생성 (중복 방지)
+     * Generates a unique filename by combining a truncated UUID, a timestamp, and the original file extension.
+     *
+     * @param originalFileName The original name of the file to extract the extension from.
+     * @return A unique filename in the format: uuid_timestamp.extension
      */
     private String generateUniqueFileName(String originalFileName) {
         // 파일 확장자 추출
@@ -129,7 +144,11 @@ public class S3ImageStorage {
     }
 
     /**
-     * 파일 확장자 추출
+     * Extracts and returns the lowercase file extension from the given filename.
+     * If the filename is null or does not contain an extension, returns "jpg" as the default.
+     *
+     * @param fileName the name of the file to extract the extension from
+     * @return the file extension in lowercase, or "jpg" if not present
      */
     private String getFileExtension(String fileName) {
         if (fileName == null || !fileName.contains(".")) {
@@ -139,7 +158,10 @@ public class S3ImageStorage {
     }
 
     /**
-     * S3 공개 URL 생성
+     * Constructs the public URL for an object stored in the S3 bucket using the provided S3 key.
+     *
+     * @param s3Key the key (path) of the object in the S3 bucket
+     * @return the public URL to access the object
      */
     private String generatePublicUrl(String s3Key) {
         // S3 공개 URL 형태
